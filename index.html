@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Home</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/font-awesome@4.7.0/css/font-awesome.min.css" />
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Style the input container */
+        .input-container {
+            display: flex;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        /* Style the form icons */
+        .icon {
+            padding: 10px;
+            background: dodgerblue;
+            color: white;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        /* Style the input fields */
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border: 2px solid dodgerblue;
+        }
+
+        /* Set a style for the submit button */
+        .btn {
+            background-color: dodgerblue;
+            color: white;
+            padding: 15px 20px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            opacity: 0.9;
+        }
+
+        .btn:hover {
+            opacity: 1;
+        }
+
+        main {
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        input:invalid.invalid {
+            border: 2px dashed red;
+        }
+
+        input:invalid:required.invalid {
+            background-image: linear-gradient(to right, pink, lightgreen);
+        }
+
+        input:valid.invalid {
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+
+        <form>
+            <h2>Register Form</h2>
+            <div class="input-container">
+                <i class="fa fa-user icon"></i>
+                <input class="input-field" type="text" placeholder="Username" name="username" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fa fa-envelope icon"></i>
+                <input class="input-field" type="email" placeholder="Email" name="email" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Password" name="password" required>
+            </div>
+
+            <div class="input-container">
+                <i class="fa fa-key icon"></i>
+                <input class="input-field" type="password" placeholder="Password again" name="password2" required>
+            </div>
+
+            <button type="submit" class="btn">Register</button>
+        </form>
+
+    </main>
+    <script>
+        document.querySelectorAll('input').forEach(e =>
+            e.addEventListener('invalid', event => e.classList.add('invalid')));
+        document.querySelectorAll('input').forEach(e =>
+            e.addEventListener('input', event => {
+                if (!e.validity.valid) {
+                    e.classList.remove('invalid');
+                    e.setCustomValidity('');
+                }
+            }));
+
+        document.forms[0].onsubmit = function (event) {
+            const form = document.forms[0];
+
+            if (form.password.value !== form.password2.value) {
+                console.log(form.password.value, form.password2.value);
+                form.password2.classList.add('invalid');
+                form.password2.setCustomValidity('Passwords do not match');
+                form.password2.reportValidity();
+                event.preventDefault();
+
+            }
+
+        };
+    </script>
+
+</body>
+
+</html>
